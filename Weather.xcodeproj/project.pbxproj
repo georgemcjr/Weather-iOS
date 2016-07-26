@@ -14,9 +14,10 @@
 		781C853E1D47EAC30077C863 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781C853D1D47EAC30077C863 /* CoreLocation.framework */; };
 		781C85401D47EAD80077C863 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781C853F1D47EAD80077C863 /* MapKit.framework */; };
 		781C85431D47FFC00077C863 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 781C85421D47FFC00077C863 /* .gitignore */; };
-		781C85461D48092B0077C863 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781C85451D48092B0077C863 /* ViewController.swift */; };
+		781C85461D48092B0077C863 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781C85451D48092B0077C863 /* MapViewController.swift */; };
 		781C854A1D480B4C0077C863 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 781C85481D480B4C0077C863 /* LaunchScreen.storyboard */; };
 		781C854B1D480B4C0077C863 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 781C85491D480B4C0077C863 /* Main.storyboard */; };
+		781C854F1D480D0F0077C863 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781C854E1D480D0F0077C863 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +42,10 @@
 		781C853D1D47EAC30077C863 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		781C853F1D47EAD80077C863 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		781C85421D47FFC00077C863 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		781C85451D48092B0077C863 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		781C85451D48092B0077C863 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		781C85481D480B4C0077C863 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		781C85491D480B4C0077C863 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		781C854E1D480D0F0077C863 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				781C851A1D47E87B0077C863 /* AppDelegate.swift */,
+				781C854D1D480C630077C863 /* Webservice */,
 				781C85441D4808DE0077C863 /* ViewControllers */,
 				781C85471D480B0A0077C863 /* Views */,
 				781C85241D47E87B0077C863 /* Assets.xcassets */,
@@ -120,7 +123,7 @@
 		781C85441D4808DE0077C863 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				781C85451D48092B0077C863 /* ViewController.swift */,
+				781C85451D48092B0077C863 /* MapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -132,6 +135,14 @@
 				781C85491D480B4C0077C863 /* Main.storyboard */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		781C854D1D480C630077C863 /* Webservice */ = {
+			isa = PBXGroup;
+			children = (
+				781C854E1D480D0F0077C863 /* NetworkManager.swift */,
+			);
+			path = Webservice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +247,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				781C85461D48092B0077C863 /* ViewController.swift in Sources */,
+				781C854F1D480D0F0077C863 /* NetworkManager.swift in Sources */,
+				781C85461D48092B0077C863 /* MapViewController.swift in Sources */,
 				781C85231D47E87B0077C863 /* Weather.xcdatamodeld in Sources */,
 				781C851B1D47E87B0077C863 /* AppDelegate.swift in Sources */,
 			);
