@@ -44,6 +44,10 @@ class MapViewController: UIViewController {
             let coordinates = mapView.convertPoint(locationTapped, toCoordinateFromView: mapView)
             print("Coordinates: \(coordinates)")
             
+            NetworkManager.requestWeatherInLocation(coordinates, callback: { (data, error) in
+                print("Data: \(data)")
+            })
+            
         }
         
     }

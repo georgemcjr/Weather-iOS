@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import CoreLocation
 @testable import Weather
 
 class WeatherTests: XCTestCase {
@@ -21,10 +22,26 @@ class WeatherTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testRequestWeatherSuccess() {
+        
+        let expectation = expectationWithDescription("Ready verification!")
+        
+        let coordinate = CLLocationCoordinate2D(latitude: -13.104694390162194, longitude: -43.014375473117717)
+        
+        NetworkManager.requestWeatherInLocation(coordinate) { (data, error) in
+            print(data)
+            XCTAssertNotNil(data, error.debugDescription)
+            
+            expectation.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(5) { (error) in
+            XCTAssertNil(error, "Timeout expectation")
+        }
+        
+        
     }
+    
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
