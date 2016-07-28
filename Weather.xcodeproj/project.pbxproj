@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		780B89C71D4ABFBD007EB539 /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780B89C61D4ABFBD007EB539 /* AlertHelper.swift */; };
 		781C851B1D47E87B0077C863 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781C851A1D47E87B0077C863 /* AppDelegate.swift */; };
 		781C85231D47E87B0077C863 /* Weather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 781C85211D47E87B0077C863 /* Weather.xcdatamodeld */; };
 		781C85251D47E87B0077C863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 781C85241D47E87B0077C863 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		780B89C61D4ABFBD007EB539 /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		781C85171D47E87A0077C863 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		781C851A1D47E87B0077C863 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		781C85221D47E87B0077C863 /* Weather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Weather.xcdatamodel; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		780B89C51D4ABFA2007EB539 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				780B89C61D4ABFBD007EB539 /* AlertHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		781C850E1D47E87A0077C863 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				781C851A1D47E87B0077C863 /* AppDelegate.swift */,
+				780B89C51D4ABFA2007EB539 /* Helpers */,
 				781C855E1D498BC30077C863 /* Presenters */,
 				781C85551D4909D40077C863 /* Model */,
 				781C85521D485D590077C863 /* Parser */,
@@ -293,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				781C854F1D480D0F0077C863 /* NetworkManager.swift in Sources */,
+				780B89C71D4ABFBD007EB539 /* AlertHelper.swift in Sources */,
 				781C855B1D494D980077C863 /* CityWeatherDetailViewController.swift in Sources */,
 				781C85461D48092B0077C863 /* MapViewController.swift in Sources */,
 				781C85571D490A700077C863 /* CityWeather.swift in Sources */,

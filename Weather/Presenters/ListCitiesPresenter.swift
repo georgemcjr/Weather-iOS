@@ -22,35 +22,41 @@ class ListCitiesPresenter {
     }
     
     func getCities(coordinate: CLLocationCoordinate2D) {
+        
+        self.view?.startLoading()
         NetworkManager.requestWeatherInLocation(coordinate) { [unowned self] (json, error) in
             
-            if error != nil {
-                self.view?.showError(error!)
-                self.view?.showNoCity()
-                return
-            }
-            
-            guard let
-                listDictCities = json!["list"] as? [[String: AnyObject]]
-            else {
-                self.view?.showNoCity()
-                return
-            }
-            
-            var listCities = [CityWeather]()
-            
-            for dict in listDictCities {
-                if let city = CityWeather.fromJson(dict) {
-                    listCities.append(city)
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                self.view?.finishLoading()
+                
+                if error != nil {
+                    self.view?.showError(error!)
+                    self.view?.showNoCity()
+                    return
                 }
-            }
-            
-            if (listCities.isEmpty) {
-                self.view?.showNoCity()
-            } else {
-                self.view?.setCities(listCities)
-            }
-            
+                
+                guard let
+                    listDictCities = json!["list"] as? [[String: AnyObject]]
+                    else {
+                        self.view?.showNoCity()
+                        return
+                }
+                
+                var listCities = [CityWeather]()
+                
+                for dict in listDictCities {
+                    if let city = CityWeather.fromJson(dict) {
+                        listCities.append(city)
+                    }
+                }
+                
+                if (listCities.isEmpty) {
+                    self.view?.showNoCity()
+                } else {
+                    self.view?.setCities(listCities)
+                }
+            })
             
         }
     }

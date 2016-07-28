@@ -10,12 +10,14 @@ import UIKit
 import MapKit
 
 class MapViewController: UIViewController {
+    
+    let segueIdShowList: String = "ShowListSegue"
 
     @IBOutlet weak var mvWeather: MKMapView!
     
     private let locationManager = CLLocationManager()
     
-    private let currentPin = MKPointAnnotation();
+    private var currentPin: MKPointAnnotation?
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
@@ -39,7 +41,7 @@ class MapViewController: UIViewController {
         
     }
     
-    // MARK: - Handle gestures
+    // MARK: - Handle screen events
     func didTapMapView(sender: UITapGestureRecognizer) {
         
         if sender.state == .Ended {
@@ -47,11 +49,25 @@ class MapViewController: UIViewController {
             let locationTapped = sender.locationInView(mvWeather)
             let coordinate = mvWeather.convertPoint(locationTapped, toCoordinateFromView: mvWeather)
             
-            mvWeather.removeAnnotation(currentPin)
+            if currentPin == nil {
+                currentPin = MKPointAnnotation()
+            }
             
-            currentPin.coordinate = coordinate
-            mvWeather.addAnnotation(currentPin)
+            mvWeather.removeAnnotation(currentPin!)
             
+            currentPin!.coordinate = coordinate
+            mvWeather.addAnnotation(currentPin!)
+            
+        }
+        
+    }
+    
+    @IBAction func didTapSearchButton(sender: AnyObject) {
+        
+        if currentPin != nil {
+            performSegueWithIdentifier(segueIdShowList, sender: self)
+        } else {
+            showMessageAlert("Erro", message: "Por favor, escolha um local no mapa", cancelButton: "OK")
         }
         
     }
@@ -61,7 +77,7 @@ class MapViewController: UIViewController {
         
         if let nextVC = segue.destinationViewController as? ListCitiesWeatherViewController {
             
-            nextVC.selectedCoordinate = currentPin.coordinate
+            nextVC.selectedCoordinate = currentPin!.coordinate
             
         }
         

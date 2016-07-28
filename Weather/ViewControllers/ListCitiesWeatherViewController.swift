@@ -13,6 +13,10 @@ class ListCitiesWeatherViewController: UITableViewController {
     
     let segueIdShowDetail: String = "ShowDetailsSegue"
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var lbStatus: UILabel!
+    @IBOutlet weak var tbHeaderStatus: UIView!
+    
     private var listCities: [CityWeather] = []
     private var selectedCity: CityWeather?
     
@@ -39,7 +43,7 @@ class ListCitiesWeatherViewController: UITableViewController {
         presenter.attachView(self)
         
         presenter.getCities(selectedCoordinate!)
-                
+        
     }
     
     
@@ -68,7 +72,6 @@ class ListCitiesWeatherViewController: UITableViewController {
         performSegueWithIdentifier(segueIdShowDetail, sender: self)
     }
     
-    
      // MARK: - Navigation
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueIdShowDetail {
@@ -85,11 +88,15 @@ class ListCitiesWeatherViewController: UITableViewController {
 extension ListCitiesWeatherViewController: ListCitiesView {
     
     func startLoading() {
-        
+        tableView.tableHeaderView = tbHeaderStatus
+        activityIndicator.startAnimating()
+        lbStatus.text = "Carregando..."
     }
     
     func finishLoading() {
-        
+        activityIndicator.stopAnimating()
+        tbHeaderStatus.hidden = true
+        tableView.tableHeaderView = nil
     }
     
     func setCities(cities: [CityWeather]) {
@@ -102,7 +109,9 @@ extension ListCitiesWeatherViewController: ListCitiesView {
     }
     
     func showNoCity() {
-        
+        tableView.tableHeaderView = tbHeaderStatus
+        tbHeaderStatus.hidden = false
+        lbStatus.text = "Nenhuma cidade encontrada."
     }
     
 }

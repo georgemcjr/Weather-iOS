@@ -34,7 +34,7 @@
                                     <color key="titleShadowColor" red="0.79215686269999996" green="0.7725490196" blue="0.74901960779999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="0R9-jv-sJz" kind="show" id="AW5-ih-Ywo"/>
+                                    <action selector="didTapSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v2C-9l-TyO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -51,6 +51,7 @@
                     <navigationItem key="navigationItem" id="vlX-YV-zZ1"/>
                     <connections>
                         <outlet property="mvWeather" destination="2KC-OV-T2N" id="Pzh-gS-ax3"/>
+                        <segue destination="0R9-jv-sJz" kind="show" identifier="ShowListSegue" id="Zsr-pI-j0c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -61,16 +62,32 @@
         <scene sceneID="jEb-9f-6i1">
             <objects>
                 <tableViewController id="0R9-jv-sJz" customClass="ListCitiesWeatherViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aMz-XO-YsN">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="aMz-XO-YsN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="4Xo-4H-YDE">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DAg-ZK-VSs">
+                                    <rect key="frame" x="8" y="16" width="20" height="20"/>
+                                </activityIndicatorView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0T-K1-D8f">
+                                    <rect key="frame" x="36" y="16" width="556" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityCellId" textLabel="6Lm-3t-IYK" detailTextLabel="3DI-OY-xjw" style="IBUITableViewCellStyleValue1" id="jhe-DI-Dak">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jhe-DI-Dak" id="UQg-w9-RXD">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Lm-3t-IYK">
@@ -97,6 +114,9 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="activityIndicator" destination="DAg-ZK-VSs" id="XLy-Ej-87O"/>
+                        <outlet property="lbStatus" destination="T0T-K1-D8f" id="Lpv-lU-oF6"/>
+                        <outlet property="tbHeaderStatus" destination="4Xo-4H-YDE" id="mGT-yK-exT"/>
                         <segue destination="Ebp-Gg-sEc" kind="show" identifier="ShowDetailsSegue" id="NQ0-hr-NO1"/>
                     </connections>
                 </tableViewController>
