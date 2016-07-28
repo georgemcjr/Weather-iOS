@@ -1,8 +1,8 @@
 //
-//  WeatherTests.swift
-//  WeatherTests
+//  ParserTests.swift
+//  Weather
 //
-//  Created by George Cavalcanti on 7/26/16.
+//  Created by George Cavalcanti on 7/27/16.
 //  Copyright © 2016 George Cavalcanti. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import XCTest
 import CoreLocation
 @testable import Weather
 
-class WeatherTests: XCTestCase {
+class ParserTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -22,22 +22,31 @@ class WeatherTests: XCTestCase {
         super.tearDown()
     }
     
-    func testRequestWeatherSuccess() {
+    func testCityWeatherParser() {
         
         let expectation = expectationWithDescription("Ready verification!")
         
         let coordinate = CLLocationCoordinate2D(latitude: -13.104694390162194, longitude: -43.014375473117717)
         
-        NetworkManager.requestWeatherInLocation(coordinate) { (data, error) in
-            XCTAssertNotNil(data, error.debugDescription)
+        NetworkManager.requestWeatherInLocation(coordinate) { (json, error) in
+            
+            XCTAssertNotNil(json, error.debugDescription)
+            
+            if let listDictCities = json!["list"] as AnyObject as? [[String: AnyObject]] {
+                XCTAssertEqual(listDictCities.count, NetworkManager.ApiConfig.numOfCitiesAround)
+                
+                let cityMock = CityWeather.fromJson(listDictCities[0])
+                
+                XCTAssertNotNil(cityMock, "Parser error")
+            
+            }
             
             expectation.fulfill()
         }
         
-        waitForExpectationsWithTimeout(5) { (error) in
+        waitForExpectationsWithTimeout(10) { (error) in
             XCTAssertNil(error, "Timeout expectation")
         }
-        
         
     }
     

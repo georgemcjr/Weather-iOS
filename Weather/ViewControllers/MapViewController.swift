@@ -11,7 +11,11 @@ import MapKit
 
 class MapViewController: UIViewController {
 
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mvWeather: MKMapView!
+    
+    private let locationManager = CLLocationManager()
+    
+    private let currentPin = MKPointAnnotation();
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
@@ -27,8 +31,11 @@ class MapViewController: UIViewController {
     // MARK: - Setup
     func initialSetup() {
         
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMapView(_:)))
-        mapView.addGestureRecognizer(tapGesture);
+        mvWeather.addGestureRecognizer(tapGesture);
         
     }
     
@@ -37,25 +44,28 @@ class MapViewController: UIViewController {
         
         if sender.state == .Ended {
             
-            let locationTapped = sender.locationInView(mapView)
-            print("Tapped location: \(locationTapped)")
+            let locationTapped = sender.locationInView(mvWeather)
+            let coordinate = mvWeather.convertPoint(locationTapped, toCoordinateFromView: mvWeather)
             
-            let coordinates = mapView.convertPoint(locationTapped, toCoordinateFromView: mapView)
-            print("Coordinates: \(coordinates)")
+            mvWeather.removeAnnotation(currentPin)
             
-            NetworkManager.requestWeatherInLocation(coordinates, callback: { (data, error) in
-                print("Data: \(data)")
-            })
+            currentPin.coordinate = coordinate
+            mvWeather.addAnnotation(currentPin)
             
         }
         
     }
     
+    // MARK: - Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if let nextVC = segue.destinationViewController as? ListCitiesWeatherViewController {
+            
+            nextVC.selectedCoordinate = currentPin.coordinate
+            
+        }
+        
+    }
     
-    
-    
-    
-
-
 }
 

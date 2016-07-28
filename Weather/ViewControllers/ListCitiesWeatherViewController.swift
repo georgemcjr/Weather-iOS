@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ListCitiesWeatherViewController: UITableViewController {
     
     let segueIdShowDetail: String = "ShowDetailsSegue"
     
-    var listCities: [CityWeather] = []
-    var selectedCity: CityWeather?
+    private var listCities: [CityWeather] = []
+    private var selectedCity: CityWeather?
+    
+    private let presenter = ListCitiesPresenter()
+    
+    var selectedCoordinate: CLLocationCoordinate2D?
+    
     
     // MARK: - ViewController lifecycle
     override func viewDidLoad() {
@@ -24,16 +30,16 @@ class ListCitiesWeatherViewController: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
     }
     
     // MARK: - Setup
     func initialSetup() {
         
-        for i in 1..<10 {
-            let city = CityWeather(cityName: "Name \(i)", minTemperature: 10, maxTemperature: 20, weatherDescription: "Good!")
-            listCities.append(city)
-        }
+        presenter.attachView(self)
         
+        presenter.getCities(selectedCoordinate!)
+                
     }
     
     
@@ -73,7 +79,30 @@ class ListCitiesWeatherViewController: UITableViewController {
             }
         }
      }
-    
-    
 
+}
+
+extension ListCitiesWeatherViewController: ListCitiesView {
+    
+    func startLoading() {
+        
+    }
+    
+    func finishLoading() {
+        
+    }
+    
+    func setCities(cities: [CityWeather]) {
+        self.listCities = cities
+        self.tableView.reloadData()
+    }
+    
+    func showError(error: ErrorType) {
+        
+    }
+    
+    func showNoCity() {
+        
+    }
+    
 }
