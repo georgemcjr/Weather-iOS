@@ -17,7 +17,7 @@ struct Parser {
                 as? [String:AnyObject] {
                 return result
             } else {
-                print("Data could not be serialized.")
+                print("Data could not be deserialized.")
             }
         } catch let error as NSError {
             print(error.localizedDescription)
@@ -26,4 +26,8 @@ struct Parser {
         return nil
         
     }
+}
+
+protocol Parselable {
+    static func fromJson(json: [String:AnyObject]) -> Self?
 }
