@@ -74,13 +74,13 @@ class ListCitiesWeatherViewController: UITableViewController {
     
      // MARK: - Navigation
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == segueIdShowDetail {
-            if let nextVC = segue.destinationViewController as? CityWeatherDetailViewController {
-                if let selectedCity = self.selectedCity {
-                    nextVC.currentCity = selectedCity
-                }
+        
+        if let nextVC = segue.destinationViewController as? CityWeatherDetailViewController {
+            if let selectedCity = self.selectedCity {
+                nextVC.currentCity = selectedCity
             }
         }
+        
      }
 
 }
@@ -106,12 +106,15 @@ extension ListCitiesWeatherViewController: ListCitiesView {
     
     func showError(error: ErrorType) {
         
+        if let error = error as? NetworkError {
+            showMessageAlert("Erro", message: error.description, cancelButton: "OK")
+        }
     }
     
     func showNoCity() {
         tableView.tableHeaderView = tbHeaderStatus
         tbHeaderStatus.hidden = false
-        lbStatus.text = "Nenhuma cidade encontrada."
+        lbStatus.text = "Nenhuma cidade encontrada"
     }
     
 }

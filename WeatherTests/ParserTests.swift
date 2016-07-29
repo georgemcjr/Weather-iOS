@@ -33,7 +33,7 @@ class ParserTests: XCTestCase {
             XCTAssertNotNil(json, error.debugDescription)
             
             if let listDictCities = json!["list"] as AnyObject as? [[String: AnyObject]] {
-                XCTAssertEqual(listDictCities.count, NetworkManager.ApiConfig.numOfCitiesAround)
+                XCTAssertEqual(listDictCities.count, NetworkManager.numOfCitiesAround)
                 
                 let cityMock = CityWeather.fromJson(listDictCities[0])
                 

@@ -11,12 +11,12 @@ import CoreLocation
 
 class NetworkManager: AnyObject {
     
-    struct ApiConfig {
-        static let numOfCitiesAround = 15
-        static let appId = "177939944cec2d9ed3521fba8f2dc7d6"
-        static let units = "metric"
-    }
+    static let defaultAppId: String = "177939944cec2d9ed3521fba8f2dc7d6"
     
+    static var numOfCitiesAround: Int = 15
+    static var appId: String = defaultAppId
+    static var units: String = "metric"
+        
     struct QueryParams {
         static let lat = "lat"
         static let lon = "lon"
@@ -47,9 +47,17 @@ class NetworkManager: AnyObject {
         
         requestJSON(request) { (jsonData, error) in
             
+            if error != nil  {
+                callback(nil, error!)
+                return
+            }
+            
             if let data = jsonData as? NSData {
                 let parsedJson = Parser.parse(data)
                 callback(parsedJson, nil)
+            } else {
+                // No data returned from server and no error occurred
+                callback(nil, nil)
             }
             
         }
@@ -72,7 +80,7 @@ class NetworkManager: AnyObject {
                 
                 switch httpResponse.statusCode {
                     
-                case 200:
+                case 200..<300:
                     callback(data ?? nil, nil)
                     return
                 case 401:
@@ -99,14 +107,13 @@ class NetworkManager: AnyObject {
         
         let latitude = String(coordinate.latitude)
         let longitude = String(coordinate.longitude)
-        let numOfCitiesAround = String(ApiConfig.numOfCitiesAround)
         
         
         let queryLat = NSURLQueryItem(name: QueryParams.lat, value: latitude)
         let queryLon = NSURLQueryItem(name: QueryParams.lon, value: longitude)
-        let queryNumCitiesAround = NSURLQueryItem(name: QueryParams.numCitiesAround, value: numOfCitiesAround)
-        let queryUnits = NSURLQueryItem(name: QueryParams.units, value: ApiConfig.units)
-        let queryAppId = NSURLQueryItem(name: QueryParams.appId, value: ApiConfig.appId)
+        let queryNumCitiesAround = NSURLQueryItem(name: QueryParams.numCitiesAround, value: String(numOfCitiesAround))
+        let queryUnits = NSURLQueryItem(name: QueryParams.units, value: units)
+        let queryAppId = NSURLQueryItem(name: QueryParams.appId, value: appId)
         
         let urlComponents = ServerEndpoints.getUrlComponents()
         
@@ -119,6 +126,15 @@ class NetworkManager: AnyObject {
         
         
         return urlComponents.URL
+        
+        
     }
     
 }
+
+
+
+
+
+
+
